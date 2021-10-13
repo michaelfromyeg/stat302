@@ -2,7 +2,7 @@
 
 \input{structure.tex}
 
-\title{STAT302: Midterm \#1}
+\title{STAT302: Midterm \#1 Revision}
 
 \author{Michael DeMarco\\ \texttt{mdemar01@student.ubc.ca}}
 
@@ -14,7 +14,7 @@
 
 \section{Number of possible pins}
 
-I got both parts of this problem wrong due to some mis-steps while approaching them using (primarily) permutations (and eliminating duplicates) instead of combinations. Each is show separately below.
+I got both parts of this problem wrong due to some mis-steps while approaching them using permutations (and eliminating duplicates) instead of combinations.
 
 \subsection{Two 0s in the pin}
 
@@ -22,9 +22,9 @@ The solution is $\binom{4}{2} \times 9^2 = 486$. The solution given is for 5-spa
 
 The solution I gave on WebWork was as follows
 
-$$\frac{9\times4!}{2!\times2!} + \frac{9\times8\times4!}{2!}$$
+$$\frac{9\times4!}{2!\times2!} + \frac{9\times8\times4!}{2!} = 918$$
 
-I was (overly) concerned about the ordering of the digits, so I opted to use permutations, and wanted to ensure I eliminated duplicates. There were two cases here, a string like (a) "00XX" and a string like (b) "00XY", leading to the two terms. We always have $4!$ ways of arranging 4 characters. In (a), we eliminate two sets of duplicates and only have 9 choices for X. Likewise in (b), we only have to cancel one set of duplicates and have $9 \times 8$ choices for X and Y.
+I was (overly) concerned about the ordering of the digits, so I opted to use permutations, and wanted to ensure I eliminated duplicates. There were two cases here, a string like (a) "00XX" and a string like (b) "00XY", leading to the two terms. We always have $4!$ ways of arranging 4 characters. In (a), we eliminate two sets of duplicates and only have 9 choices for X (and only 1 choice for the other X). Likewise in (b), we only have to cancel one set of duplicates and have $9 \times 8$ choices for X and Y.
 
 It becomes clear how "close" (or far) I was if we just re-write my solution in terms of $\binom{n}{k}$.
 
@@ -40,17 +40,21 @@ It becomes clear how "close" (or far) I was if we just re-write my solution in t
 	\end{split}
 \end{equation}
 
-I considered solutions like $\frac{9\times9\times4!}{2!2!}$ but the magic extra $2!$ on the bottom for "some other duplicate" (other than "00") made me believe it was incorrect so I scratched it out. The proposed solution I gave was, after some squinting, actually correct everywhere in except one term. (TODO: Why over-counting?)
+I considered solutions like $\frac{9\times9\times4!}{2!2!}$ but the magic extra $2!$ on the bottom for "some other duplicate" (other than "00") made me believe it was incorrect so I scratched it out. The proposed solution I gave was, after some squinting, actually correct everywhere in except one term. I was aware that I need to order 4 things, to eliminate duplicate in the zeroes, and to eliminate "some other duplicate" in the other letters, but overly complicated my approach. To correctly do this, I should have added a second $2!$ to the bottom of the second term to account for duplicates there as well. Then, it would've been completely correct, as
+
+$$\frac{9\times4!}{2!\times2!} + \frac{9\times8\times4!}{2!\times2!}=54+432=486$$
+
+as desired.
 
 \subsection{1 and 2 in the pin}
 
-The solution is $2\binom{4}{2} \times 8^2 = 768$. The solution given is for 5-spaces in the pin, but the solution is generally $2\binom{n}{2} \times 8^{n-2}$ where $n$ is the number of spaces.
+(The argument here is practically identical, so feel free to skim a bit.) The solution is $2\binom{4}{2} \times 8^2 = 768$. The solution given is for 5-spaces in the pin, but the solution is generally $2\binom{n}{2} \times 8^{n-2}$ where $n$ is the number of spaces.
 
 The solution I gave on WebWork was as follows
 
-$$\frac{1\times1\times8\times1\times4!}{2!} + \frac{1\times1\times8\times7\times4!}{1}$$
+$$\frac{1\times1\times8\times1\times4!}{2!} + \frac{1\times1\times8\times7\times4!}{1} = 1440$$
 
-I was (overly) concerned about the order of the digits and wanted ensure I was handling cases where there were duplicates in the string. In the first case, I imagined we had a string like $\text{12XX}$ where $X$ is some digit other than 0 (and the "X"s are of course equal). There are 4! ways to re-arrange these characters and we need to divide by $2!$ to account for "flipping" XX. In the second case, I imagined we had a string like $\text{12XY}$. This explains the $8\times7$ part of the term, since we have $8$ choices for X and then just $7$ for Y. The same logic follows from before, but this time we have no duplicates.
+I was (overly) concerned about the order of the digits and wanted ensure I was handling cases where there were duplicates in the string. In the first case, I imagined we had a string like $\text{"12XX"}$ where X was some digit other than 0 (and the "X"s are of course equal). There are 4! ways to re-arrange these characters and we need to divide by $2!$ to account for re-arranging XX. In the second case, I imagined we had a string like $\text{"12XY"}$. This explains the $8\times7$ part of the term, since we have $8$ choices for X and then just $7$ for Y. The same logic follows from before, but this time we have no duplicates (I assumed).
 
 It becomes clear how "close" I was if we just re-write my term in terms of $\binom{n}{k}$.
 
@@ -66,6 +70,15 @@ It becomes clear how "close" I was if we just re-write my term in terms of $\bin
 	\end{split}
 \end{equation}
 
-I considered solutions like $\frac{8\times8\times4!}{2!2!}$, thinking the second $2!$ could somehow magically erase all the "XX" cases above (which is correct) but scratched them out as I was concerned about eliminating too many cases... alas. The proposed solution I gave was (after some squinting) correct everywhere except for one term, due to over-counting certain cases. (TODO: Why over-counting?)
+I considered solutions like $\frac{8\times8\times4!}{2!2!}$, thinking the second $2!$ could somehow magically erase all the "XX" cases above (which is correct) but scratched them out as I was concerned about eliminating too many cases... alas. The proposed solution I gave was (after some squinting) correct everywhere except for one term, due to over-counting certain cases. Similar to the first part, the term again missed was a $2!$, and again in this case, it should be placed in the denominator in the second term. We'd see
+
+$$\frac{8\times4!}{2!} + \frac{8\times7\times4!}{2!} = 96 + 672 = 768$$
+
+as desired.
+
+\vspace{3mm}
+\textbf{The moral?} In both questions, I tried to "split" the question into two cases, when you can't neatly do that in these counting questions and thus \textit{underestimated} the number of duplicates I had. A missing $2!$ in both parts would've earned me full points.
+
+(I've summarized my work shown here, but I'm happy to walk through the submission I uploaded to Canvas as well and "prove" that this was my thinking via the scratch-work. Apologies for the long write-up, but this one took me a minute to see!)
 
 \end{document}

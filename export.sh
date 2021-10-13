@@ -1,0 +1,1 @@
+cp $1 /mnt/c/Users/mdema/Documents/$2
